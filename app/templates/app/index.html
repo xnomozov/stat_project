@@ -8,21 +8,36 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f0f2f5, #ffffff);
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
         h1 {
             text-align: center;
             color: #333;
             margin-bottom: 40px;
+            font-size: 2.5em;
         }
         .section {
             margin-bottom: 40px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        .section:last-child {
+            border-bottom: none;
         }
         .section h2 {
             color: #555;
@@ -30,30 +45,36 @@
             border-bottom: 2px solid #007BFF;
             display: inline-block;
             padding-bottom: 5px;
+            font-size: 1.8em;
         }
         .card {
             background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
             margin-bottom: 20px;
             padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            max-width: 100%;
+            overflow: hidden;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
-        .name {
+        .card .name {
             font-size: 1.4em;
             color: #007BFF;
             margin-bottom: 10px;
+            font-weight: 700;
         }
-        .info {
+        .card .info {
             font-size: 1.1em;
             color: #555;
+            line-height: 1.6;
         }
-        .info strong {
+        .card .info strong {
             color: #007BFF;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -62,7 +83,7 @@
         <h1>Statistics Overview</h1>
 
         <div class="section">
-            <h2>Top Customer</h2>
+            <h2>Top Customers</h2>
             <div id="top-customers">
                 {% for customer in top_customers %}
                     <div class="card">
@@ -79,7 +100,7 @@
                 {% for product in most_ordered_products %}
                     <div class="card">
                         <div class="name">{{ product.name }}</div>
-                        <div class="info">Total Quantity Ordered: <strong>{{ product.total_quantity }}</strong></div>
+                        <div class="info">Total Quantity Ordered: <strong>{{ product.total_quantity_ordered }}</strong></div>
                     </div>
                 {% endfor %}
             </div>
@@ -103,7 +124,7 @@
                 {% for product in product_quantities %}
                     <div class="card">
                         <div class="name">{{ product.name }}</div>
-                        <div class="info">Total Quantity Ordered: <strong>{{ product.total_quantity }}</strong></div>
+                        <div class="info">Total Quantity Ordered: <strong>{{ product.total_quantity_ordered }}</strong></div>
                     </div>
                 {% endfor %}
             </div>
@@ -116,6 +137,18 @@
                     <div class="card">
                         <div class="name">{{ customer.name }}</div>
                         <div class="info">Total Orders: <strong>{{ customer.total_orders }}</strong></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Total Value of Orders per Customer</h2>
+            <div id="top-customers-by-value">
+                {% for customer in top_customers_by_value %}
+                    <div class="card">
+                        <div class="name">{{ customer.name }}</div>
+                        <div class="info">Total Order Value: <strong>{{ customer.total_value }}</strong></div>
                     </div>
                 {% endfor %}
             </div>
